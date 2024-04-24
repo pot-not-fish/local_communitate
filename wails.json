@@ -1,0 +1,13 @@
+{
+  "$schema": "https://wails.io/schemas/config.v2.json",
+  "name": "my_local_communitate",
+  "outputfilename": "my_local_communitate",
+  "frontend:install": "npm install",
+  "frontend:build": "npm run build",
+  "frontend:dev:watcher": "npm run dev",
+  "frontend:dev:serverUrl": "auto",
+  "author": {
+    "name": "LIKE_A_STAR",
+    "email": "840231514@qq.com"
+  }
+}
