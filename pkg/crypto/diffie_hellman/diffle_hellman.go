@@ -13,29 +13,42 @@ const (
 	p = 167772161
 )
 
-type crypto struct {
+type Crypto struct {
 	r   int64
 	gR  int64
 	gAB int64
 }
 
-func NewCrypto() *crypto {
-	cyt := new(crypto)
+func NewCrypto() *Crypto {
+	cyt := new(Crypto)
 	cyt.r = GetRandom()
 	cyt.gR = QuickPower(g, cyt.r)
-	cyt.KeyGenerator()
 	return cyt
 }
 
-func (c *crypto) Encrypto(data int64) int64 {
+func (c *Crypto) KeyGeneration(keyGeneration func(c Crypto) int64) {
+	c.gAB = keyGeneration(*c)
+}
+
+func (c *Crypto) Get_R() int64 {
+	return c.r
+}
+
+func (c *Crypto) Get_GR() int64 {
+	return c.gR
+}
+
+func (c *Crypto) Get_gAB() int64 {
+	return c.gAB
+}
+
+func (c *Crypto) Encrypto(data int64) int64 {
 	return (data * c.gAB) % p
 }
 
-func (c *crypto) Decrypto(data int64) int64 {
+func (c *Crypto) Decrypto(data int64) int64 {
 	return (data * QuickPower(c.gAB, p-2)) % p
 }
-
-func (c *crypto) KeyGenerator() {}
 
 func GetRandom() (random int64) {
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))

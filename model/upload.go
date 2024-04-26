@@ -1,7 +1,8 @@
 package model
 
 type UploadRequest struct {
-	URL string `json:"url"`
+	URL       string `form:"url" json:"url" xml:"url"`
+	Signature string `form:"signature" json:"signature" xml:"signature"`
 }
 
 type UploadResponse struct {

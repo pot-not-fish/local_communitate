@@ -2,7 +2,13 @@ package main
 
 import (
 	"embed"
+	"my_local_communitate/pkg/cache/group"
+	"my_local_communitate/pkg/cache/lru"
 
+	// "my_local_communitate/pkg/cache/group"
+	// "my_local_communitate/pkg/cache/lru"
+
+	// "github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin"
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
@@ -35,11 +41,15 @@ func main() {
 		println("Error:", err.Error())
 	}
 
+	lruCache := lru.NewCache()
+	group.NewGroup("symmetric_key", lruCache)
+	group.NewGroup("asymmetric_key", lruCache)
+
 	// web server
 	r := gin.Default()
 
 	r.POST("/upload")
 	r.POST("/keygen")
 
-	r.Run("127.0.0.1:5000")
+	r.Run("0.0.0.0:5000")
 }

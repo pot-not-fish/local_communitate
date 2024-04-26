@@ -19,4 +19,6 @@ func TestLRU(t *testing.T) {
 
 	assert.Equal(t, m.Get("0"), []byte("a"))
 	assert.Equal(t, m.Get("1"), []byte("b"))
+	assert.Equal(t, m.ll.Back().Value.(*valueLRU).key, "2")
+	assert.Equal(t, m.Get("-1"), nil)
 }

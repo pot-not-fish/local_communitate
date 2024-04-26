@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import ReceiveFile from './components/ReceiveFile.vue'
+  import RecieveFile from './components/RecieveFile.vue'
   import UploadFile from './components/UploadFile.vue'
 </script>
 
@@ -16,7 +16,7 @@
             <UploadFile/>
           </div>
           <div class="box">
-            <ReceiveFile/>
+            <RecieveFile/>
           </div>
         </div>
       </el-main>

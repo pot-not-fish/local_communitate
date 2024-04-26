@@ -1,7 +1,11 @@
 package internal
 
 import (
+	"bytes"
+	"fmt"
+	"io"
 	"my_local_communitate/model"
+	"my_local_communitate/pkg/crypto/crypto_md5"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -24,8 +28,21 @@ func upload(c *gin.Context) error {
 		return err
 	}
 
-	c.SaveUploadedFile(file, "")
+	// md5校验
+	fd, err := file.Open()
+	if err != nil {
+		return err
+	}
+	buf := new(bytes.Buffer)
+	io.Copy(buf, fd)
+	md5 := crypto_md5.NewHashMD5()
+	if !md5.IsValid(buf.Bytes(), uploadRequest.Signature) {
+		return fmt.Errorf("invalid file")
+	}
 
+	// DES解密文件
+
+	c.JSON(http.StatusOK, model.UploadResponse{Code: 0, Msg: "OK"})
 	return nil
 }
 

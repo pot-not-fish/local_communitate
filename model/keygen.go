@@ -1,6 +1,7 @@
 package model
 
 type KeyGenRequest struct {
+	URL   string   `form:"url" json:"url" xml:"url"`
 	Step  int      `form:"step" json:"step" xml:"step"`
 	Share []string `form:"share" json:"share" xml:"share"`
 }
