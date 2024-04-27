@@ -26,8 +26,12 @@ func NewCrypto() *Crypto {
 	return cyt
 }
 
-func (c *Crypto) KeyGeneration(keyGeneration func(c Crypto) int64) {
-	c.gAB = keyGeneration(*c)
+func GetP() int64 {
+	return p
+}
+
+func (c *Crypto) SetGAB(gAB int64) {
+	c.gAB = gAB
 }
 
 func (c *Crypto) Get_R() int64 {

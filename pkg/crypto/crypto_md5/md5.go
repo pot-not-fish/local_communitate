@@ -16,3 +16,9 @@ func (h *hashMD5) IsValid(data []byte, signature string) bool {
 	hex := fmt.Sprintf("%x", hash)
 	return hex == signature
 }
+
+func GenerateHash(data []byte) (signature string) {
+	hash := md5.Sum(data)
+	hex := fmt.Sprintf("%x", hash)
+	return hex
+}

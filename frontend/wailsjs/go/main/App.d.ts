@@ -3,4 +3,4 @@
 
 export function Greet(arg1:string):Promise<string>;
 
-export function Send(arg1:string,arg2:string,arg3:Array<number>):Promise<void>;
+export function Send(arg1:string,arg2:string,arg3:Array<number>):Promise<string>;

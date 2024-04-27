@@ -55,7 +55,9 @@
                 let data = e.target.result as ArrayBuffer
                 let uint8array = new Uint8Array(data)
                 let arr = Array.from(uint8array)
-                Send(input.value, file.file.name, arr)
+                Send(input.value, file.file.name, arr).then(result => {
+                    alert(result)
+                })
             }
         }
     }
