@@ -1,70 +1,29 @@
-<script lang="ts" setup>
-  import {reactive} from 'vue'
-  import {Greet} from '../../wailsjs/go/main/App'
-
-  const data = reactive({
-    name: "",
-    resultText: "Please enter your name below 👇",
-  })
-
-  function greet() {
-    Greet(data.name).then(result => {
-      data.resultText = result
-    })
-  }
-</script>
-
 <template>
-  <main>
-    <div id="result" class="result">{{ data.resultText }}</div>
-    <div id="input" class="input-box">
-      <input id="name" v-model="data.name" autocomplete="off" class="input" type="text"/>
-      <button class="btn" @click="greet">Greet</button>
-    </div>
-  </main>
+  <el-button :plain="true" @click="open2">Success</el-button>
+  <el-button :plain="true" @click="open3">Warning</el-button>
+  <el-button :plain="true" @click="open1">Message</el-button>
+  <el-button :plain="true" @click="open4">Error</el-button>
 </template>
 
-<style scoped>
-.result {
-  height: 20px;
-  line-height: 20px;
-  margin: 1.5rem auto;
-}
+<script lang="ts" setup>
+import { ElMessage } from 'element-plus'
 
-.input-box .btn {
-  width: 60px;
-  height: 30px;
-  line-height: 30px;
-  border-radius: 3px;
-  border: none;
-  margin: 0 0 0 20px;
-  padding: 0 8px;
-  cursor: pointer;
+const open1 = () => {
+  ElMessage('This is a message.')
 }
-
-.input-box .btn:hover {
-  background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
-  color: #333333;
+const open2 = () => {
+  ElMessage({
+    message: 'Congrats, this is a success message.',
+    type: 'success',
+  })
 }
-
-.input-box .input {
-  border: none;
-  border-radius: 3px;
-  outline: none;
-  height: 30px;
-  line-height: 30px;
-  padding: 0 10px;
-  background-color: rgba(240, 240, 240, 1);
-  -webkit-font-smoothing: antialiased;
+const open3 = () => {
+  ElMessage({
+    message: 'Warning, this is a warning message.',
+    type: 'warning',
+  })
 }
-
-.input-box .input:hover {
-  border: none;
-  background-color: rgba(255, 255, 255, 1);
+const open4 = () => {
+  ElMessage.error('Oops, this is a error message.')
 }
-
-.input-box .input:focus {
-  border: none;
-  background-color: rgba(255, 255, 255, 1);
-}
-</style>
+</script>

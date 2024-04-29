@@ -2,31 +2,30 @@
     <el-table :data="tableData" stripe style="width: 100%">
         <el-table-column prop="date" label="接收时间" width="180" />
         <el-table-column prop="name" label="文件名" width="180" />
-        <el-table-column prop="address" label="状态" />
+        <el-table-column prop="state" label="状态" />
     </el-table>
 </template>
   
 <script lang="ts" setup>
-    const tableData = [
-        {
-            date: '2016-05-03',
-            name: 'Tom',
-            address: 'No. 189, Grove St, Los Angeles',
-        },
-        {
-            date: '2016-05-02',
-            name: 'Tom',
-            address: 'No. 189, Grove St, Los Angeles',
-        },
-        {
-            date: '2016-05-04',
-            name: 'Tom',
-            address: 'No. 189, Grove St, Los Angeles',
-        },
-        {
-            date: '2016-05-01',
-            name: 'Tom',
-            address: 'No. 189, Grove St, Los Angeles',
-        },
-    ]
+    import { EventsOn } from '../../wailsjs/runtime/runtime'
+    import { ref } from 'vue'
+
+    interface TableRow {  
+        date: string;  
+        name: string;  
+        state: string; // 假设 state 是字符串类型，根据实际情况调整
+    }  
+
+    const tableData = ref<TableRow[]>([]);  
+
+    let eventName = "upload_list"
+    let callback = (date: any, name: any, state: any) => {
+        tableData.value.push({  
+            date: date,  
+            name: name,  
+            state: state,
+        })
+    }
+
+    const register = EventsOn(eventName, callback)
 </script>

@@ -2,6 +2,7 @@ package internal
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"io"
 	"my_local_communitate/model"
@@ -10,9 +11,16 @@ import (
 	"my_local_communitate/pkg/crypto/crypto_md5"
 	"my_local_communitate/pkg/crypto/diffie_hellman"
 	"net/http"
+	"os"
 	"strconv"
+	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/wailsapp/wails/v2/pkg/runtime"
+)
+
+var (
+	CTX context.Context
 )
 
 func Upload(c *gin.Context) {
@@ -69,6 +77,10 @@ func upload(c *gin.Context) error {
 		return fmt.Errorf("invalid file")
 	}
 
+	os.WriteFile(file.Filename, cipher_data, 0644)
+
+	runtime.EventsEmit(CTX, "upload_list", fmt.Sprintf("%d-%d-%d  %d:%d:%d", time.Now().Year(), time.Now().Month(), time.Now().Day(), time.Now().Hour(), time.Now().Minute(), time.Now().Second()), file.Filename, "接收成功")
+
 	c.JSON(http.StatusOK, model.UploadResponse{Code: 0, Msg: "OK"})
 	return nil
 }
@@ -116,4 +128,8 @@ func keyGen(c *gin.Context) error {
 		c.JSON(http.StatusOK, model.KeyGenResponse{Code: 0, Msg: "OK"})
 	}
 	return nil
+}
+
+func Ping(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{"code": 0, "msg": "OK"})
 }

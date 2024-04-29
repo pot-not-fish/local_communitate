@@ -37,8 +37,9 @@
     import { UploadFilled } from '@element-plus/icons-vue'
     import { Send } from '../../wailsjs/go/main/App'
     import type { UploadInstance } from 'element-plus'
-
+    import { ElNotification } from 'element-plus'
     import { ref } from 'vue'
+    
     const input = ref('')
     const uploadRef = ref<UploadInstance>()
 

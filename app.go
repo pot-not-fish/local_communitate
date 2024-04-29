@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io"
 	"mime/multipart"
+	"my_local_communitate/internal"
 	"my_local_communitate/model"
 	"my_local_communitate/pkg/crypto/crypto_des"
 	"my_local_communitate/pkg/crypto/crypto_md5"
@@ -28,6 +29,7 @@ func NewApp() *App {
 // startup is called when the app starts. The context is saved
 // so we can call the runtime methods
 func (a *App) startup(ctx context.Context) {
+	internal.CTX = ctx
 	a.ctx = ctx
 }
 
