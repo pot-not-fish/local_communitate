@@ -1,6 +1,6 @@
 # my_local_communitate
 
-### 说明
+### 项目说明
 
 用于局域网加密传输文件工具，基于wails，使用Go+Vue+Element ui开发的桌面应用
 
@@ -10,3 +10,13 @@
   - 每次文件传输密钥会重新生成密钥
 - LRU缓存本地密钥，最多不超过100个
 
+### 如何使用
+
+参考官网[安装 | Wails](https://wails.io/zh-Hans/docs/gettingstarted/installation)
+
+在my_local_communitate目录下输入以下命令即可
+
+```
+wails build
+```
+在build/bin目录下生成相应程序
