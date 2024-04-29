@@ -36,3 +36,10 @@ func Get(groupName string, key string) (value []byte, err error) {
 	}
 	return value, nil
 }
+
+func Del(groupName string, key string) {
+	val, ok := groups[groupName]
+	if ok {
+		val.Del(key)
+	}
+}

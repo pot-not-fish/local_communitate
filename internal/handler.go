@@ -81,6 +81,9 @@ func upload(c *gin.Context) error {
 
 	runtime.EventsEmit(CTX, "upload_list", fmt.Sprintf("%d-%d-%d  %d:%d:%d", time.Now().Year(), time.Now().Month(), time.Now().Day(), time.Now().Hour(), time.Now().Minute(), time.Now().Second()), file.Filename, "接收成功")
 
+	group.Del("asymmetric_key", uploadRequest.URL)
+	group.Del("symmetric_key", uploadRequest.URL)
+
 	c.JSON(http.StatusOK, model.UploadResponse{Code: 0, Msg: "OK"})
 	return nil
 }

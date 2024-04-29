@@ -24,6 +24,7 @@ type valueLRU struct {
 type CacheInterface interface {
 	Get(key string) (value []byte)
 	Set(key string, value []byte)
+	Del(key string)
 }
 
 func NewCache() *CacheLRU {
@@ -56,6 +57,15 @@ func (c *CacheLRU) Set(key string, value []byte) {
 	}
 	head := c.ll.PushFront(&valueLRU{key: key, value: value})
 	c.cache[key] = head
+}
+
+func (c *CacheLRU) Del(key string) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	if val, ok := c.cache[key]; ok {
+		c.ll.Remove(val)
+		delete(c.cache, val.Value.(*valueLRU).key)
+	}
 }
 
 func (c *CacheLRU) del() {
